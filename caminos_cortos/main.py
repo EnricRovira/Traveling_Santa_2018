@@ -49,7 +49,9 @@ def get_destiny(origin):
 
 numVertices = len(df_cities.CityId)
 cities = df_cities['CityId']
+visited_city = [0,]
 no_visited = df_cities['CityId']
+no_visited.drop(0)
 total_distance = 0
 
 #//
@@ -62,11 +64,12 @@ i=0
 
 while (len(visited_city) < numVertices):
     i+=1
-    visited_city.append(nextCity)
-    no_visited.drop(nextCity)
     nextCity, distance = get_destiny(nextCity)
     path.append(nextCity)
+    visited_city.append(nextCity)
+    no_visited.drop(nextCity)
     total_distance += distance
+
     if (i%100==0 or i==1):
         print ("Ya llevo: " + str(i))
 
