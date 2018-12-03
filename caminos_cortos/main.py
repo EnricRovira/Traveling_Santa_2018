@@ -22,11 +22,9 @@ def calcular_distancia (origen, destino):
     distancia = 0
     distancia = math.sqrt( (df_cities['X'][df_cities.CityId[destino]] - df_cities['X'][df_cities.CityId[origen]])**2 +
                            (df_cities['Y'][df_cities.CityId[destino]] - df_cities['Y'][df_cities.CityId[origen]])**2)
-    return distancia
 
-#############################################
-############### Cosas sueltas ###############
-#############################################
+    #distancia = np.sqrt()
+    return distancia
 
 
 # Function that calculates the minimum distance to the next city
@@ -71,7 +69,7 @@ while (len(visited_city) < numVertices):
     total_distance += distance
 
     if (i%100==0 or i==1):
-        print ("Ya llevo: " + str(i))
+        print ("Ya llevo: " + str(i) + 'en ' + str(time.time() - start_time))
 
 elapsed_time = time.time() - start_time
 print ("Total distance: " + str(total_distance))
