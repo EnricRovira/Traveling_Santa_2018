@@ -12,7 +12,6 @@ df_cities = pd.read_csv('data/cities.csv')
 cities = np.array(df_cities['CityId'])
 numVertices = len(df_cities.CityId)
 
-visited_city = [0,]
 no_visited = df_cities['CityId']
 no_visited = no_visited.drop(0)
 
@@ -42,17 +41,21 @@ path=[0,]
 nextCity = 0
 mindistance = sys.maxsize
 
-while (len(visited_city) < numVertices):
+while (len(path) < numVertices):
     i+=1
     nextCity, distance = get_destiny(nextCity, mindistance)
     path.append(nextCity)
-    visited_city.append(nextCity)
     no_visited = no_visited.drop(nextCity)
     total_distance += distance
 
     if (i%100==0 or i==1):
-        print ("Ya llevo: " + str(i) + ' en ' + str(time.time() - start) + " ,distancia_tot=" + str(total_distance) + " " + str(path[-6:-1]))
+        print ("Ya llevo: " + str(i) + ' en ' + str(time.time() - start) + " ,distancia_tot=" + str(total_distance) + " " + str(path[-6:-1]) + " " +str(len(no_visited)))
+
+path.append(0)
 
 elapsed_time = time.time() - start
 print ("Total distance: " + str(total_distance))
 print("time: " + str(elapsed_time))
+
+df_path = pd.DataFrame({'CityId':path})
+df_path.to_csv("./submissions/minDistances.csv")
