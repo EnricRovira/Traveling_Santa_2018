@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 #import seaborn as sns
 import random
-from sympy import isprime, primerange
+#from sympy import isprime, primerange
 import time
 import math
 import sys
@@ -12,20 +12,25 @@ import sys
 df_cities = pd.read_csv('data/cities.csv')
 print (df_cities.head())
 
-df_cities['prime'] = df_cities.CityId.apply(isprime)
-print (df_cities.head())
+cities = df_cities["CityId"]
 
+visited_city = [0,]
+no_visited = df_cities['CityId']
+no_visited = no_visited.drop(0)
+
+X = np.array(df_cities['X'])
+Y = np.array(df_cities['Y'])
+
+#df_cities['prime'] = df_cities.CityId.apply(isprime)
+#print (df_cities.head())
 
 # Funcion que calucla la distancia euclidea a partir de un origen y un destino
 
-def calcular_distancia (origen, destino):
-    distancia = 0
-    distancia = math.sqrt( (df_cities['X'][df_cities.CityId[destino]] - df_cities['X'][df_cities.CityId[origen]])**2 +
-                           (df_cities['Y'][df_cities.CityId[destino]] - df_cities['Y'][df_cities.CityId[origen]])**2)
+def calcular_distancia(origen, destino):
+    distancia = np.sqrt(pow((X[destino] - X[origen]), 2) +
+                        pow((Y[destino] - Y[origen]), 2))
 
-    #distancia = np.sqrt()
     return distancia
-
 
 # Function that calculates the minimum distance to the next city
 # and append that city to 'visited'. That city will be the nex to be visited
@@ -49,7 +54,7 @@ numVertices = len(df_cities.CityId)
 cities = df_cities['CityId']
 visited_city = [0,]
 no_visited = df_cities['CityId']
-no_visited.drop(0)
+no_visited = no_visited.drop(0)
 total_distance = 0
 
 #//
